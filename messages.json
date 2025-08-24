@@ -1,0 +1,14 @@
+{
+    "ERROR":"Une erreur s'est produite...",
+    "ERROR_FIELDS_REQUIERED":"Les champs sont obligatoires.",
+    "ERROR_PASSWORDS_NOT_MATCH":"Les mots de passes ne correspondent pas.",
+    "ERROR_EMAIL_NOT_FOUND":"L'email ne correspond à aucun compte",
+    "SUCESS_SEND_MAIL":"L'email à été envoyée avec succès !",
+    "SUCESS_ACCOUNT_VERIFICATION":"Votre compte à été vérifié avec succès !",
+    "SUCESS_EDIT":"Modification apportée avec succès !",
+    "FAILED_SEND_MAIL_COOLDOWN":"Veuillez patientez avant de renvoyer un email.",
+    "INVALID_CREDITALS":"Identifiants invalide.",
+    "INVALID_USERNAME_FORMAT":"Le nom d'utilisateur doit faire entre 3 et 32 caractères, inclure au moins une lettre, et peut contenir des lettres, des chiffres et des underscores.",
+    "INVALID_PASSWORD":"Mot de passe invalide.",
+    "LABEL_NAME_IS_USERNAME":"Choisir le nom comme pseudo"
+}

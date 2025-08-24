@@ -1,0 +1,38 @@
+{% load static %}
+{% with user=request.user %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email - {{ project_name }}</title>
+</head>
+<body>
+    <header>
+        <h1>R2BAC</h1>
+        <h2>La route la plus facile et rapide</h2>
+    </header>
+    <main>
+        <p>Salut {{ user.first_name }}👋,<p>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; {{ project_name }} - 2025. Tous droits réservés.</p>
+        <div>
+            <a href="{{ whatsapp_url }}">
+                <img src="{% static 'socials/whatsapp.svg' %}"/>
+            </a>
+            
+            <a href="{{ discord_url }}">
+                <img src="{% static 'socials/discord.svg'%}"/>
+            </a>
+
+            <a href="{{ github_url }}">
+                <img src="{% static 'socials/github.svg' %}"/>
+            </a>
+        </div>
+    </footer>
+</body>
+</html>
+{% endwith %}

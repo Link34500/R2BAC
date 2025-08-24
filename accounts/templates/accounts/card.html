@@ -1,0 +1,31 @@
+{% extends 'accounts/base.html'%}
+
+{% block content %}
+    <div>
+        <form method="post">
+        <div>
+            {% block card-top %}
+            <h1>{{ title }}</h1>
+            {% endblock %}
+        </div>
+
+        <div>
+            {% csrf_token %}
+    
+            {% block form %}
+                {{ form.as_p }}
+            {% endblock %}
+
+            {% block card-mid %}
+            {% endblock %}            
+        </div>
+
+        <div>
+            {% block card-bottom %}
+            <button>{{ title }}</button>
+            {% endblock %}
+            
+        </div>
+        </form>
+    </div>
+{% endblock %}

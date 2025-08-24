@@ -1,0 +1,14 @@
+{% extends 'accounts/emails/base.html' %}
+
+{% block content %}
+<h1>Bienvenue sur R2BAC</h1>
+<p>
+    Merci, de nous avoir fait confiance 😄.
+    <br>
+    Nous allons te proposer un maximum de contenu et d'aide, pour que tu puisse réussir ton année dans les meilleurs conditions.
+    N'hésite pas à rejoindre le <a href="{{ discord_url }}">Discord</a> pour suivre les conférences, et le groupe <a href="{{ whatsapp_url }}">Whatsapp</a> pour avoir de l'aide.
+    <br>
+    Nous sommes actuellemment en période de Bêta de Test. N'hésite pas à nous faire des retours par mail contact@r2bac.fr ou
+    bien sur notre <a href="{{ discord_url }}">Discord</a> ou notre groupe <a href="{{ whatsapp_url }}">Whatsapp</a>.
+</p>
+{% endblock %}

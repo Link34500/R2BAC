@@ -1,0 +1,7 @@
+{% extends 'accounts/emails/base.html' %}
+
+{% block content %}
+<p>Voici le lien pour activer ton compte R2BAC on compte sur toi 👏 !</p>
+<a href="{{ request.get_host }}{% url 'accounts:verify' %}?token={{ token }}">Activer son compte</a>
+
+{% endblock %}

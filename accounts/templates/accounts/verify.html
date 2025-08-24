@@ -1,0 +1,13 @@
+{% extends 'accounts/base.html'%}
+{% block content %}
+    <!-- !Mettre une card ici -->
+    <div>
+        <h1>Vérification du compte</h1>
+        <p>Allez {{ user.first_name }}, derière étape. Pour activer ton compte consulte tes mails un lien d'activation y à été envoyée</p>
+        <form method="post">
+            {% csrf_token %}
+            <button>Renvoyer le lien de vérification</button>
+        </form>
+    </div>
+
+{% endblock %}
