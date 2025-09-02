@@ -8,6 +8,12 @@ from common.settings import PROJECT_NAME
 
 
 # Create your models here.
+class UserDeleted:
+    username = "Deleted-User"
+    first_name = "Deleted"
+    last_name = "User"
+    email = "deleted-user@r2bac.fr"
+
 
 class Role(models.Model):
     """Model représentant un role utilisateur.

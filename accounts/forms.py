@@ -3,12 +3,12 @@ from .models import *
 from uuid import uuid4
 from django.contrib.auth import authenticate
 from common.utils.messages import message as _
-import re
+from django.shortcuts import render
 
 
 class RegisterForm(forms.ModelForm):
-    received_email = forms.BooleanField(widget=forms.CheckboxInput({"value":"Recevoir "}),required=False,initial=True)
-    cgu = forms.BooleanField(widget=forms.CheckboxInput({"value":"Accepter les <a href=\"{% url 'cgu' %}\">conditions d'utilisation<a/>"}),required=True,initial=True)
+    received_email = forms.BooleanField(widget=forms.CheckboxInput(),required=False,label="S'inscrire à notre newsletter (no spam)")
+    cgu = forms.BooleanField(required=True,label="Accepter les <a href='/cgu'>conditions d'utilisation</a>")
 
     class Meta:
         model = User
@@ -38,6 +38,7 @@ class RegisterForm(forms.ModelForm):
             Profile.objects.create(user=user)
 
         return user
+
 
 class LoginForm(forms.Form):
     username_or_email = forms.CharField(max_length=255,required=True,label="Adresse-mail ou Nom d'utilisateur")
@@ -71,6 +72,7 @@ class LoginForm(forms.Form):
         
         return cleaned_data
 
+
 class ProfileForm(forms.ModelForm):
     avatar = forms.FileField(widget=forms.FileInput(attrs={"accept":"image/png, image/jpeg"}),required=False)
     name_is_username = forms.BooleanField(required=False,label=_("LABEL_NAME_IS_USERNAME"))
@@ -80,7 +82,7 @@ class ProfileForm(forms.ModelForm):
 
     def save(self, commit = True):
         """Mets à jour les infos de l'instance
-
+        
         Args:
             commit (bool, optional): Est ce que les changemments se font directemment en base de données ?
             Attention ! Si la valeur est à False vous devez effectuer les changements des Infos et du Profile manuellemment
@@ -95,6 +97,7 @@ class ProfileForm(forms.ModelForm):
             instance.profile.save()
             instance.save()
         return instance
+
 
 class SendResetPasswordForm(forms.Form):
     email = forms.EmailField(max_length=255,required=True)
@@ -123,7 +126,7 @@ class PasswordResetForm(forms.Form):
         Returns:
             (dict): Retourne le dictionnaire des données si rien n'es mal formatté
         """
-        clean_data = super().clean()
+        clean_data = super(forms.Form,self).clean()
         new_password = clean_data["new_password"]
         confirm_new_password = clean_data["confirm_new_password"]
         
@@ -154,7 +157,6 @@ class PasswordChangeForm(forms.Form):
     def __init__(self,user,*args,**kwargs):
         super(PasswordChangeForm,self).__init__(*args,**kwargs)
         self.user = user
-    
 
     
     def clean_old_password(self):
@@ -165,9 +167,12 @@ class PasswordChangeForm(forms.Form):
 
     def clean(self):
         """Reprend les mêmes propriété de la méthode PasswordReset.clean"""
-        return PasswordReset.clean(self)
+        return PasswordResetForm.clean(self)
 
     def update(self):
         self.user.set_password(self.cleaned_data["new_password"])
+
+def delete(request):
+    render(request,"accounts/delete.html")
 
 

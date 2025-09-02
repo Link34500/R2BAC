@@ -1,4 +1,4 @@
-<from django.views.generic import *
+from django.views.generic import *
 from .forms import *
 from .models import *
 from .mixins import *
@@ -91,19 +91,27 @@ class LoginView(TitleMixin,LogoutRequieredMixin,FormView):
     success_url = reverse_lazy("home")
     title = "Se connecter"
 
+    def get_success_url(self):
+        # Regarde si l'utilisateur doit être redirigé à un endroit spécifique
+        next_url = self.request.GET.get("next")
+        if next_url:
+            return next_url
+        return super().get_success_url()
+
     def form_valid(self, form:LoginForm):
         user = form.cleaned_data["user"]
         login(self.request,user)
 
         return super().form_valid(form)
 
-class LogoutView(LoginRequieredMixin,View):
+class LogoutView(View):
     def get(self,request):
-        logout(request)
+        if request.user.is_authenticated:
+            logout(request)
         return redirect("home")
 
 
-class ProfileView(LoginRequieredMixin,UpdateView):
+class ProfileView(LoginRequiredMixin,UpdateView):
     """Vue du profil des utilisateurs"""
     model = User
     form_class = ProfileForm
@@ -118,10 +126,19 @@ class ProfileView(LoginRequieredMixin,UpdateView):
     def get_object(self):
         return self.request.user
 
-class SettingsView(LoginRequieredMixin,FormView):
+class SettingsView(LoginRequiredMixin,FormView):
     template_name = "accounts/settings.html"
-    sucess_url = reverse_lazy("accounts:settings")
+    success_url = reverse_lazy("accounts:settings")
     form_class = PasswordChangeForm
+
+    def get(self,request,*args,**kwargs):
+        pwdc = self.request.GET.get("pwdc")
+        if pwdc == "true":
+            messages.success(request,_("SUCESS_CHANGE_PASSWORD"))
+
+        return super().get(request,*args,**kwargs)
+    def get_success_url(self):
+        return f"{super().get_success_url()}?pwdc=true"
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -131,3 +148,11 @@ class SettingsView(LoginRequieredMixin,FormView):
     def form_valid(self, form:PasswordChangeForm):
         form.update()
         return super().form_valid(form)
+
+class DeleteAccountView(LoginRequiredMixin,DeleteView):
+    model = User
+    success_url = reverse_lazy("home")
+    template_name = "accounts/delete.html"
+    def get_object(self):
+        return self.request.user
+

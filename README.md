@@ -25,16 +25,17 @@ cd R2BAC
 
 ## Prochainemment
 ### Accounts
-- Vérifier le format de mot de passe,email,username,firstname dans le formulaire.
-- Empecher d'envoyer des fichiers de plus de 5Mo
-- Sauvegarder avec le nom de l'id de l'utilisateur et supprimer ses anciennes pp.
-- Faire en sorte qu'ils ne puisse envoyer que des images avec les validateurs 
+- Implémenter les validateurs
 - Permettre la rénitialisation de mot de passe #
 - Expiration du token de rénitialisation #
-- Créer un cooldown pour l'envoie de vérification de mot de passe/compte/supression de compte
-- Permettre la supression de compte avec vérification par mail
-- Permettre de changer sont mot de passe/adressemail
+- Permettre la supression de compte #
+- Permettre de changer sont mot de passe #
+### Securité (Cooldown)
 - Cooldown de 15 minutes si on modifie le profil plus de 3 fois dans la même heure
+- Créer un cooldown pour l'envoie de mail
+### Sécurité Limite
+- Empecher d'envoyer des fichiers de plus de 5Mo
+- Changer le nom du fichier de la pp avec l'uuid de l'utilisateur.
 
 ### Cours
 - Permettre de visionner les cours

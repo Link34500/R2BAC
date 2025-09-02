@@ -11,5 +11,6 @@ urlpatterns = [
     path("profil/",ProfileView.as_view(),name="profile"),
     path("reset-password/",SendResetPasswordView.as_view(),name="reset_password"),
     path("reset-password/<str:token_id>/",PasswordResetView.as_view(),name="password_reset"),
-    path("settings/",SettingsView.as_view(),name="settings")
+    path("settings/",SettingsView.as_view(),name="settings"),
+    path("delete/",DeleteAccountView.as_view(),name="delete")
 ]

@@ -1,8 +1,10 @@
 from django.http import Http404
 from .models import *
 from django.shortcuts import redirect
+from django.urls import reverse
 from django.contrib import messages
 from common.utils.messages import message as _
+from django.contrib.auth.mixins import LoginRequiredMixin as LRM
 
 
 class MailSendVerificationMixin:
@@ -34,12 +36,13 @@ class LogoutRequieredMixin:
             return redirect("accounts:verify")
         raise Http404("Non connecté")
     
-class LoginRequieredMixin:
+class LoginRequiredMixin(LRM):
+    """Rajout de la méthode pour savoir si le compte est vérifier"""
     def dispatch(self, request, *args, **kwargs):
-        user = self.request.user
-        if user.is_authenticated and user.info.is_verified:
-            return super().dispatch(request, *args, **kwargs)
-        return redirect("accounts:login")
+        if isinstance(request.user,User) and not request.user.info.is_verified:
+            return redirect("accounts:verify")
+        return super().dispatch(request, *args, **kwargs)
+        
 
 class NotVerifiedRequieredMixin:
     def dispatch(self, request, *args, **kwargs):
