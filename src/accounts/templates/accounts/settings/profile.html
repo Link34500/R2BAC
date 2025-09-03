@@ -1,0 +1,17 @@
+{% extends 'accounts/settings/board.html'%}
+{% load static %}
+
+{% block section %}
+    <script src="{% static 'accounts/js/profile.js' %}"></script>
+    <img id="avatar" src="{% if user.profile.avatar %}{{ user.profile.avatar.url }}{% else %}{% static 'avatar_blank.png'%}{% endif %}" class="image is-128x128 profile-picture m-5"/>
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% include 'components/form.html' %}
+        
+        <div>
+            <button type="submit" class="button is-primary m-1">Sauvegarder les changemments</button>
+            <button type="reset" class="button is-danger m-1">Rénitialiser les changemments</button>
+        </div>
+    </form>
+{% endblock %}

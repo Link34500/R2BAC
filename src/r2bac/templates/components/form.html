@@ -1,0 +1,40 @@
+{% load tags %}
+{% for field in form %}
+  {% with field_type=field.field.widget.input_type%}
+  <div class="field">
+    {% if field_type == "file" %}
+    <div class="file has-name">
+      <label class="file-label">
+        <input class="file-input" type="file" name="{{ field.name }}" {% for key,value in field.field.widget.attrs.items %}{{key}}="{{value}}"{% endfor%}/>
+        <span class="file-cta">
+          <span class="file-icon">
+            <i class="fas fa-upload"></i>
+          </span>
+          <span class="file-label">Importer un fichier</span>
+        </span>
+      </label>
+    </div>
+    {% elif field_type == "checkbox" %}
+    <label class="checkbox" for="{{ field.name }}">
+      <input id="{{ field.name }}" class="{{ field_type|is_writable }}" name="{{ field.name }}" type="{{ field_type }}" placeholder="{{ field|placeholder }}" {%if field.initial == True %} checked {% endif %} {% for key,value in field.field.widget.attrs.items %}{{key}}="{{value}}"{% endfor%}>
+      {{ field.label|safe }}
+    </label>
+    {% else %}
+    <label class="label" for="{{ field.name }}">{{ field.label|safe }}</label>
+    <div class="control">
+      <input id="{{ field.name }}" class="{{ field_type|is_writable }}" name="{{ field.name }}" type="{{ field_type }}" placeholder="{{ field|placeholder }}" value="{% if field.initial %}{{ field.initial }}{% endif %}" {% for key,value in field.field.widget.attrs.items %}{{key}}="{{value}}"{% endfor%}>
+    </div>
+    {% endif %}
+    {% for error in field.errors %}
+      <p class="help is-danger">{{ error }}</p>
+    {% endfor %}
+    {% for key, value in form.errors.items %}
+      {% if key == '__all__' %}
+      {% for i in value %}
+      <p class="help is-danger">{{ i }}</p>
+      {% endfor %}
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% endwith %}
+{% endfor %}

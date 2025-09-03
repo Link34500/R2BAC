@@ -1,0 +1,13 @@
+{% extends 'components/card.html' %}
+
+{% block card-top %}
+<h1 class="card-header-title is-centered">Ton compte a été vérifié !</h1>
+{% endblock %}
+
+{% block card-content %}
+<p style="text-align: center;">Félicitations, {{ user.first_name }} ! 🎉 Tu es maintenant un membre officiel de la communauté R2BAC. Nous sommes ravis de t'accueillir parmi nous !</p>
+{% endblock %}
+
+{% block card-bottom %}
+<a href="{% url 'home' %}" class="button is-primary m-3">Retour à l'accueil</a>
+{% endblock %}

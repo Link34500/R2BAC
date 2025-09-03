@@ -12,7 +12,7 @@ from common.utils.messages import message as _
 class RegisterView(TitleMixin,LogoutRequieredMixin,FormView):
     """Représente la page de création de compte"""
     form_class = RegisterForm
-    template_name = "accounts/register.html"
+    template_name = "accounts/auth/register.html"
     title = "Créer un compte"
     success_url = reverse_lazy("accounts:verify")
 
@@ -30,7 +30,7 @@ class RegisterView(TitleMixin,LogoutRequieredMixin,FormView):
 
 class VerifyView(NotVerifiedRequieredMixin,MailSendVerificationMixin,TemplateView):
     """Représente la page de vérification de compte"""
-    template_name = "accounts/verify.html"
+    template_name = "accounts/auth/verify.html"
 
     def get(self,request,*args,**kwargs):
         token = request.GET.get("token")
@@ -39,7 +39,7 @@ class VerifyView(NotVerifiedRequieredMixin,MailSendVerificationMixin,TemplateVie
         if token and user.info.verify_token == token:
             user.info.is_verified = True
             user.info.save()
-            return render(request=self.request,template_name="accounts/welcome.html")
+            return render(request=self.request,template_name="accounts/auth/welcome.html")
 
         return super().get(request,*args,**kwargs)
 
@@ -54,7 +54,7 @@ class VerifyView(NotVerifiedRequieredMixin,MailSendVerificationMixin,TemplateVie
 class SendResetPasswordView(LogoutRequieredMixin,TitleMixin,MailSendVerificationMixin,FormView):
     title = "Envoyer un mail de rénitialisation"
     form_class = SendResetPasswordForm
-    template_name = "accounts/send_reset_password.html"
+    template_name = "accounts/auth/send_reset_password.html"
     success_url = reverse_lazy("accounts:reset_password")
     
     def get_success_url(self):
@@ -68,7 +68,7 @@ class SendResetPasswordView(LogoutRequieredMixin,TitleMixin,MailSendVerification
 class PasswordResetView(LogoutRequieredMixin,TitleMixin,FormView):
     title = "Rénitialiser mon mot de passe"
     form_class = PasswordResetForm
-    template_name = "accounts/reset_password.html"
+    template_name = "accounts/auth/reset_password.html"
     success_url = reverse_lazy("accounts:login")
 
     def get(self, request, *args, **kwargs):
@@ -87,7 +87,7 @@ class PasswordResetView(LogoutRequieredMixin,TitleMixin,FormView):
 class LoginView(TitleMixin,LogoutRequieredMixin,FormView):
     """Représente la page de Login de l'utilisateur"""
     form_class = LoginForm
-    template_name = "accounts/login.html"
+    template_name = "accounts/auth/login.html"
     success_url = reverse_lazy("home")
     title = "Se connecter"
 
@@ -115,7 +115,7 @@ class ProfileView(LoginRequiredMixin,UpdateView):
     """Vue du profil des utilisateurs"""
     model = User
     form_class = ProfileForm
-    template_name = "accounts/profile.html"
+    template_name = "accounts/settings/profile.html"
     success_url = reverse_lazy("accounts:profile")
     
     def get_initial(self):
@@ -127,7 +127,7 @@ class ProfileView(LoginRequiredMixin,UpdateView):
         return self.request.user
 
 class SettingsView(LoginRequiredMixin,FormView):
-    template_name = "accounts/settings.html"
+    template_name = "accounts/settings/settings.html"
     success_url = reverse_lazy("accounts:settings")
     form_class = PasswordChangeForm
 
@@ -152,7 +152,7 @@ class SettingsView(LoginRequiredMixin,FormView):
 class DeleteAccountView(LoginRequiredMixin,DeleteView):
     model = User
     success_url = reverse_lazy("home")
-    template_name = "accounts/delete.html"
+    template_name = "accounts/settings/delete.html"
     def get_object(self):
         return self.request.user
 

@@ -1,0 +1,36 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block page %}
+<link rel="stylesheet" href="{% static 'css/components/card.css' %}">
+
+<div class="card">
+  <form method="post">
+    <div class="card-header">
+      {% block card-top %}
+      <h1 class="card-header-title is-centered">{{ title }}</h1>
+      {% endblock %}
+    </div>
+
+    <div class="card-content">
+      {% block card-content %}
+      {% csrf_token %}
+      
+      {% block form %}
+        {% include 'components/form.html' %}
+      {% endblock %}
+      <div class="mt-2">
+      {% block card-mid %}
+      
+      {% endblock %}
+      </div>
+      {% endblock %}
+    </div>
+
+    <div class="card-footer">
+      {% block card-bottom %}
+        <button class="button is-primary m-3" type="submit">{{ title }}</button>
+      {% endblock %}
+    </div>
+  </form>
+</div>
+{% endblock %}

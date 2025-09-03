@@ -10346,7 +10346,7 @@ label.panel-block:hover {
 .footer {
   --bulma-footer-background-color: var(--bulma-scheme-main-bis);
   --bulma-footer-color: false;
-  --bulma-footer-padding: 3rem 1.5rem 6rem;
+  --bulma-footer-padding: 3rem 6rem 3rem;
   background-color: var(--bulma-footer-background-color);
   padding: var(--bulma-footer-padding);
 }
@@ -19500,10 +19500,10 @@ has-background-danger.is-hoverable:active {
   --bulma-warning-on-scheme: hsla(var(--bulma-warning-h), var(--bulma-warning-s), var(--bulma-warning-on-scheme-l), 1);
   --bulma-danger: hsla(var(--bulma-danger-h), var(--bulma-danger-s), var(--bulma-danger-l), 1);
   --bulma-danger-base: hsla(var(--bulma-danger-h), var(--bulma-danger-s), var(--bulma-danger-l), 1);
-  --bulma-danger-rgb: 255, 102, 132.6;
-  --bulma-danger-h: 348deg;
+  --bulma-danger-rgb: 255, 2, 2;
+  --bulma-danger-h: 0deg;
   --bulma-danger-s: 100%;
-  --bulma-danger-l: 70%;
+  --bulma-danger-l: 50%;
   --bulma-danger-00-l: 0%;
   --bulma-danger-05-l: 5%;
   --bulma-danger-10-l: 10%;
@@ -19588,7 +19588,7 @@ has-background-danger.is-hoverable:active {
   --bulma-danger-100: hsla(var(--bulma-danger-h), var(--bulma-danger-s), var(--bulma-danger-100-l), 1);
   --bulma-danger-100-invert-l: var(--bulma-danger-30-l);
   --bulma-danger-100-invert: hsla(var(--bulma-danger-h), var(--bulma-danger-s), var(--bulma-danger-100-invert-l), 1);
-  --bulma-danger-invert-l: var(--bulma-danger-05-l);
+  --bulma-danger-invert-l: var(--bulma-danger-100-l);
   --bulma-danger-invert: hsla(var(--bulma-danger-h), var(--bulma-danger-s), var(--bulma-danger-invert-l), 1);
   --bulma-danger-light-l: var(--bulma-danger-90-l);
   --bulma-danger-light: hsla(var(--bulma-danger-h), var(--bulma-danger-s), var(--bulma-danger-light-l), 1);
@@ -19602,7 +19602,7 @@ has-background-danger.is-hoverable:active {
   --bulma-danger-bold: hsla(var(--bulma-danger-h), var(--bulma-danger-s), var(--bulma-bold-l), 1);
   --bulma-danger-soft-invert: hsla(var(--bulma-danger-h), var(--bulma-danger-s), var(--bulma-soft-invert-l), 1);
   --bulma-danger-bold-invert: hsla(var(--bulma-danger-h), var(--bulma-danger-s), var(--bulma-bold-invert-l), 1);
-  --bulma-danger-on-scheme-l: 40%;
+  --bulma-danger-on-scheme-l: 40.3921568627%;
   --bulma-danger-on-scheme: hsla(var(--bulma-danger-h), var(--bulma-danger-s), var(--bulma-danger-on-scheme-l), 1);
   --bulma-black-bis: hsl(221, 14%, 9%);
   --bulma-black-ter: hsl(221, 14%, 14%);
@@ -19664,6 +19664,16 @@ html {
   height: 100%;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body main {
+  flex: 1;
+}
+
 .notifications {
   position: absolute;
   display: flex;
@@ -19680,4 +19690,10 @@ html {
   padding-right: 64px;
   overflow-wrap: break-word;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 25px 1px;
+}
+
+.profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }

@@ -1,0 +1,7 @@
+{% extends 'components/card.html' %}
+
+{% block card-mid %}
+    <a href="{% url 'accounts:register' %}">Créer un compte</a>
+    <br>
+    <a href="{% url 'accounts:reset_password'%}">Mot de passe oubliée ?</a>
+{% endblock %}

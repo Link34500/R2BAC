@@ -1,5 +1,8 @@
-{% extends 'base.html' %} {% block page %}
-<header>{% include 'components/navbar.html'%}</header>
+{% extends 'base.html' %} 
+
+{% block page %}
+
+{% include 'components/navbar.html'%}
 
 <main>
   <section class="hero is-white is-large">
@@ -40,5 +43,6 @@
   </section>
 </main>
 
-<footer></footer>
+{% include 'components/footer.html' %}
+
 {% endblock %}

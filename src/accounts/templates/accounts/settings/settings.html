@@ -1,0 +1,12 @@
+{% extends 'accounts/settings/board.html'%}
+
+{% block section %}
+<form method="post">
+    {% csrf_token %}
+    {% include 'components/form.html' %}
+    <button class="button is-primary m-1 mb-3">Changer de mot de passe</button>
+</form>
+<hr/>
+<a href="{% url 'accounts:delete' %}" class="button is-danger has-text-white mt-3">Supprimer mon compte et mes données</a>
+{% endblock %}
+

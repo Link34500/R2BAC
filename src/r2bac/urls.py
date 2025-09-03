@@ -23,5 +23,11 @@ from r2bac import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/',include('accounts.urls',"accounts")),
-    path('',index,name="home")
+    path('jobs/',index,name="jobs"),
+    path('cgu/',cgu,name="cgu"),
+    path('privacy_policy',privacy_policy,name="privacy_policy"),
+    path('legal',legal,name="legal"),
+    path('contact/',contact,name="contact"),
+    path('a-propos/',apropos,name="a-propos"),
+    path('',index,name="home"),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # a desactiver en prod

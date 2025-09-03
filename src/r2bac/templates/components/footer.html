@@ -1,0 +1,19 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/components/footer.css' %}">
+
+<footer class="footer has-background-primary has-text-white">
+  <div class="breadcrumb is-centered is-small" aria-label="breadcrumbs">
+    <ul>
+      <li><a href="{% url 'cgu' %}" class="has-text-white">CGU</a></li>
+      <li><a href="{% url 'privacy_policy' %}" class="has-text-white">Privacy Policy</a></li>
+      <li><a href="{% url 'legal' %}" class="has-text-white">Legals</a></li>
+    </ul>
+  </div>
+
+  <div class="container has-text-centered">
+    <p>
+      &copy; R2BAC 2025
+    </p>
+  </div>
+
+</footer>

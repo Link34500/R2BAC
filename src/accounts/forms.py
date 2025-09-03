@@ -7,8 +7,8 @@ from django.shortcuts import render
 
 
 class RegisterForm(forms.ModelForm):
-    received_email = forms.BooleanField(widget=forms.CheckboxInput(),required=False,label="S'inscrire à notre newsletter (no spam)")
-    cgu = forms.BooleanField(required=True,label="Accepter les <a href='/cgu'>conditions d'utilisation</a>")
+    received_email = forms.BooleanField(widget=forms.CheckboxInput(),required=False,label=_("LABEL_SUBSCRIBE_NEWSLETTER"))
+    cgu = forms.BooleanField(required=True,label=_("LABEL_CGU_ACCEPT"))
 
     class Meta:
         model = User
@@ -41,7 +41,7 @@ class RegisterForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    username_or_email = forms.CharField(max_length=255,required=True,label="Adresse-mail ou Nom d'utilisateur")
+    username_or_email = forms.CharField(max_length=255,required=True,label=_("LABEL_EMAIL_OR_USERNAME"))
     password = forms.CharField(widget=forms.PasswordInput(),required=True,label="Mot de passe")
 
     def clean(self):
@@ -56,12 +56,12 @@ class LoginForm(forms.Form):
             (dict): Si tout ce basse bien le contexte est retourné.
         """
         cleaned_data = super().clean()
-        username_email = cleaned_data["username_or_email"]
-        password = cleaned_data["password"]
+        username_email = cleaned_data.get("username_or_email")
+        password = cleaned_data.get("password")
 
         # Si le mot de passe ou le username/mail est vide
         if not password or not username_email:
-            raise forms.ValidationError(_("INVALID_CREDITALS"))
+            return cleaned_data
         
         user = authenticate(username_or_email=username_email,password=password)
 
@@ -71,6 +71,7 @@ class LoginForm(forms.Form):
             cleaned_data["user"] = user
         
         return cleaned_data
+
 
 
 class ProfileForm(forms.ModelForm):
@@ -91,7 +92,8 @@ class ProfileForm(forms.ModelForm):
             (User): Retourne l'instance de l'utilisateur
         """
         instance = super().save(commit=False)
-        instance.profile.avatar = self.cleaned_data["avatar"]
+        if self.cleaned_data["avatar"]:
+            instance.profile.avatar = self.cleaned_data["avatar"]
         instance.profile.name_is_username = self.cleaned_data["name_is_username"]
         if commit:
             instance.profile.save()

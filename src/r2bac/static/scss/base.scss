@@ -7,7 +7,8 @@
 
 @use "libs/utilities" with (
   $primary: var.$primary,
-  $link: var.$link
+  $link: var.$link,
+  $danger: var.$danger
 );
 
 @use "sass:color";
@@ -16,7 +17,9 @@
 @use "libs/form";
 @use "libs/components";
 @use "libs/grid";
-@use "libs/layout";
+@use "libs/layout" with (
+  $footer-padding: var.$footer-padding,
+);
 @use "libs/base/skeleton";
 @use "libs/helpers";
 
@@ -33,6 +36,16 @@ body,
 html {
   font-family: "Roboto", sans-serif;
   height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+body main {
+  flex: 1;
 }
 
 .notifications {
@@ -52,3 +65,5 @@ html {
   overflow-wrap: break-word;
   @include mx.shadow;
 }
+
+.profile-picture {width: 40px; height: 40px; border-radius: 50%;}

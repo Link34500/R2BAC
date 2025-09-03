@@ -1,14 +1,14 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/components/navbar.css'%}" />
-
+<header>
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <img src="{% static 'logo.svg' %}" class="navbar-item image" width="80px" />
+    <a href="{% url 'home' %}"><img src="{% static 'logo.svg' %}" class="navbar-item image" width="80px" /></a>
 
     {% if request.user.is_authenticated %}
     <div class="dropdown is-right avatar" id="dropdown-user">
       <div class="dropdown-trigger" id="avatar-button">
-        <img src="{% if request.user.profile.avatar %}{{ request.user.profile.avatar.url }}{% else %}{% static 'avatar_blank.png'%}{% endif %}" alt="Photo de profil" class="image" style="width: 40px; height: 40px; border-radius: 50%;">
+        <img src="{% if request.user.profile.avatar %}{{ request.user.profile.avatar.url }}{% else %}{% static 'avatar_blank.png'%}{% endif %}" alt="Photo de profil" class="image profile-picture">
       </div>
       <div class="dropdown-menu">
         <div class="dropdown-content">
@@ -40,9 +40,9 @@
 
   <div id="navMenu" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item"> Page d'acceuil </a>
-      <a class="navbar-item is-capitalized">à propos </a>
-      <a href="" class="navbar-item">Nous contacter</a>
+      <a class="navbar-item" href="{% url 'home' %}"> Page d'acceuil </a>
+      <a class="navbar-item is-capitalized" href="{% url 'a-propos' %}">à propos </a>
+      <a href="{% url 'contact' %}" class="navbar-item">Nous contacter</a>
 
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link"> Nos cours </a>
@@ -69,4 +69,5 @@
       </div>
     </div>
   </div>
-</nav>
+</nav>  
+</header>

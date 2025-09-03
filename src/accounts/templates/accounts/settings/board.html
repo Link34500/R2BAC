@@ -1,0 +1,25 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+
+{% block page %}
+    <link rel="stylesheet" href="{% static 'accounts/css/board.css' %}">
+    {% include 'components/navbar.html' %}
+    <main>
+        <div class="card">
+            <div class="card-header">
+                <div class="tabs">
+                    <ul>
+                        <li class="{% if 'profil' in request.path %}is-active{% endif %}"><a href="{% url 'accounts:profile' %}">Profil</a></li>
+                        <li class="{% if 'settings' in request.path %}is-active{% endif %}"><a href="{% url 'accounts:settings'%}">Paramètres</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-content">
+                {% block section %}
+                {% endblock %}
+            </div>
+        </div>
+    </main>
+    {% include 'components/footer.html' %}
+{% endblock %}

@@ -11,5 +11,8 @@
     "INVALID_USERNAME_FORMAT":"Le nom d'utilisateur doit faire entre 3 et 32 caractères, inclure au moins une lettre, et peut contenir des lettres, des chiffres et des underscores.",
     "INVALID_PASSWORD":"Mot de passe invalide.",
     "LABEL_NAME_IS_USERNAME":"Choisir le nom comme pseudo",
+    "LABEL_EMAIL_OR_USERNAME":"Adresse-mail ou Nom d'utilisateur",
+    "LABEL_SUBSCRIBE_NEWSLETTER":"S'inscrire à notre newsletter (no spam)",
+    "LABEL_CGU_ACCEPT":"Accepter les <a href='/cgu'>conditions générales d'utilisation</a>",
     "SUCESS_CHANGE_PASSWORD":"Mot de passe modifié avec succès"
 }

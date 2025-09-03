@@ -1,0 +1,14 @@
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 32px;
+}
+
+.card-header,
+.card-footer {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
