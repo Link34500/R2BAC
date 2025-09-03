@@ -1,0 +1,22 @@
+nav {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 25px 1px;
+}
+nav a.navbar-item:hover,
+nav .navbar-link:hover {
+  text-decoration: underline;
+  color: #0563ef;
+  background-color: inherit;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.avatar {
+  position: absolute;
+  right: 64px;
+  transform: translateY(50%);
+  z-index: 1000;
+}

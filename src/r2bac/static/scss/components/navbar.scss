@@ -1,0 +1,26 @@
+@use '../utils/mixins' as mx;
+@use '../utils/variables' as var;
+
+nav {
+  @include mx.shadow;
+  a.navbar-item:hover,
+  .navbar-link:hover {
+    text-decoration: underline;
+    color: var.$link;
+    background-color: inherit;
+  }
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+
+.avatar {
+  position: absolute;
+  right: 64px;
+  transform: translateY(50%);
+  z-index: 1000;
+}

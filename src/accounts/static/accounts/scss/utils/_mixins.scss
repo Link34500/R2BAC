@@ -1,0 +1,14 @@
+@use 'sass:color';
+
+@mixin shadow($color: black, $intensity: 0.1, $blur: 25px) {
+  $color: rgba($color, $intensity);
+  box-shadow: $color 0px 0px $blur 1px;
+}
+
+@mixin bg-gradient($color: $primary, $intensity: 20, $direction: to right) {
+  background: linear-gradient(
+    $direction,
+    $color,
+    color.adjust($color, $lightness: $intensity)
+  );
+}

@@ -25,4 +25,4 @@ EXPOSE 8000
 # Commande de production
 # CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "r2bac.wsgi:application"]
 # Commande de dévelopemment
-CMD ["python","manage.py","runserver","0.0.0.0:8000"]
+CMD ["python","src/manage.py","runserver","0.0.0.0:8000"]
