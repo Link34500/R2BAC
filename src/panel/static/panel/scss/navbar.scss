@@ -1,0 +1,17 @@
+@use 'utils/mixins' as mx;
+@use 'utils/variables' as var;
+
+nav {
+  @include mx.shadow;
+  a:hover {
+    background-color: inherit;
+    text-decoration: underline;
+    color: var.$primary;
+  }
+}
+
+.navbar-end {
+  @media (min-width:1024px) {
+    padding-right: 248px;
+  }
+}

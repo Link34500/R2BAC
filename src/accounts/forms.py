@@ -129,11 +129,11 @@ class PasswordResetForm(forms.Form):
             (dict): Retourne le dictionnaire des données si rien n'es mal formatté
         """
         clean_data = super(forms.Form,self).clean()
-        new_password = clean_data["new_password"]
-        confirm_new_password = clean_data["confirm_new_password"]
+        new_password = clean_data.get("new_password")
+        confirm_new_password = clean_data.get("confirm_new_password")
         
         if not new_password or not confirm_new_password:
-            raise forms.ValidationError(_("ERROR_FIELDS_REQUIERED"))
+            return clean_data
 
         if new_password != confirm_new_password:
             raise forms.ValidationError(_("ERROR_PASSWORDS_NOT_MATCH"))
@@ -150,9 +150,10 @@ class PasswordResetForm(forms.Form):
         return user
 
 class PasswordChangeForm(forms.Form):
-    old_password = forms.CharField(required=True,widget=forms.PasswordInput())
-    new_password = forms.CharField(required=True,widget=forms.PasswordInput())
-    confirm_new_password = forms.CharField(required=True,widget=forms.PasswordInput())
+    old_password = forms.CharField(required=True,widget=forms.PasswordInput(),label=_("PASSWORD"))
+
+    new_password = forms.CharField(required=True,widget=forms.PasswordInput(),label=_("NEW_PASSWORD"))
+    confirm_new_password = forms.CharField(required=True,widget=forms.PasswordInput(),label=_("CONFIRM_NEW_PASSWORD"))
 
     ###! IMPLEMETER LES VALIDATEURS !###
 

@@ -6,13 +6,12 @@
 <main class="section is-large">
     <form method="post">
         {% csrf_token %}
-        <h1 class="title ">Est tu vraimment sur de vouloir supprimer ton compte ?</h1>
-        <p class="content">Cette action est irréversible et entraineras la supression de ton compte
-        ainsi que toutes tes données personnels.</p>
+        <h1 class="title">Êtes-vous certain de vouloir supprimer votre compte ?</h1>
+        <p class="content">Cette action est irréversible et entraînera la suppression de votre compte ainsi que de toutes vos données personnelles.</p>
         
         <div class="content m-3">
-            <button class="button is-danger m-2" type="submit">Oui, supprimer mon compte et toutes mes données personnelles conformémment à l'article 17 du RGPD sur le droit à l'effacemment</button>
-            <a href="{% url 'home'%}" class="button is-success has-text-white m-2">Non, je ne souhaite pas supprimer mon compte finalemment</a>
+            <button class="button is-danger m-2" type="submit">Oui, supprimer mon compte et toutes mes données personnelles conformément à l'article 17 du RGPD sur le droit à l'effacement</button>
+            <a href="{% url 'home' %}" class="button is-success has-text-white m-2">Non, je ne souhaite pas supprimer mon compte</a>
         </div>
         
     </form>

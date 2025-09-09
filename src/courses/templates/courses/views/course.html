@@ -1,0 +1,15 @@
+{% extends 'courses/base.html' %}
+{% load tags %}
+
+
+{% block content %}
+<section class="section" style="height: 100%;">
+  <div class="box" style="height: 100%; width: 90%; margin: auto;">
+    <div class="content">
+      <h1>{{ object.name }}</h1>
+      {{ object.content|to_markdown }}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

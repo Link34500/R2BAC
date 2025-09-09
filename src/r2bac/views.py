@@ -1,8 +1,11 @@
 from django.shortcuts import render
-
+from panel.models import Card
+from courses.models import Grade
 
 def index(request):
-    return render(request,template_name="r2bac/index.html")
+    
+    
+    return render(request,template_name="r2bac/index.html",context={"cards":Card.objects.all()})
 
 def cgu(request):
     return render(request,template_name="cgu.html")

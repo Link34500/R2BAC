@@ -1,0 +1,15 @@
+{% extends 'panel/components/table.html' %}
+
+{% block thead %}
+  <th>Utilisateur</th>
+  <th>Action effectuer</th>
+  <th>Adresse-IP</th>
+  <th>Date</th>
+{% endblock %}
+
+{% block tbody %}
+  <td>{{obj.user}}</td>
+  <td>{{obj.action}}</td>
+  <td>{{obj.adresse_ip}}</td>
+  <td>[{{obj.executed_at|date:'d/M/Y:H:i:s+00'}}]</td>
+{% endblock %}

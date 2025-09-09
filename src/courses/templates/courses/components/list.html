@@ -1,0 +1,37 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'courses/css/box.css' %}">
+<section class="section is-medium">
+  <h1 class="title">Les {{ title }}</h1>
+{% if object_list %}
+<div class="columns is-desktop">
+  
+  {% for object in object_list %}
+  <div class="column is-desktop">
+    <a href="{{object.slug}}" class="button is-primary is-large is-fullwidth">{{object.name}}</a>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<section class="section">
+<div class="box has-background-warning">
+  <span class="icon-text has-text-white">
+    <span class="icon">
+      <i class="fas fa-exclamation-triangle"></i>
+    </span>
+    <span>
+      Nous nous efforçons de proposer un maximum de contenu. Si vous souhaitez qu’un contenu soit intégré plus rapidement, vous pouvez nous contacter
+      sur notre Discord ou bien à l’aide de notre formulaire de contact <a class="has-text-danger" href="{% url 'contact' %}">ici</a>.
+    </span>
+  </span>
+</div>
+</section>
+
+<section class="section is-full has-text-centered">
+  <h1 class="subtitle">Aucun contenu disponible</h1>
+</section>
+{% endif %}
+{% endblock %}

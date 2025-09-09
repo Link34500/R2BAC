@@ -1,4 +1,7 @@
 from django import template
+from markdown import Markdown
+from django.utils.safestring import mark_safe
+
 
 register = template.Library()
 html_text_input_types = [
@@ -10,7 +13,14 @@ html_text_input_types = [
     "textarea"            # Champ de texte multi-lignes pour entrer de grandes quantités de texte
 ]
 
+@register.filter(name="to_markdown")
+def to_markdown(value):
+    md = Markdown(extensions=["extra","fenced_code", "codehilite","mdx_math"])
+    return mark_safe(md.convert(value))
 
+@register.filter(name="get_ctx_field")
+def get_ctx_field(value):
+    return value.field.widget.get_context(name=value.name,value=value.value(),attrs=value.field.widget.attrs).get("widget")
 
 @register.filter(name="is_writable")
 def is_writable(value):

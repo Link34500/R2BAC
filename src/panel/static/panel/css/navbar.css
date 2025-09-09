@@ -1,0 +1,14 @@
+nav {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 25px 1px;
+}
+nav a:hover {
+  background-color: inherit;
+  text-decoration: underline;
+  color: #0563ef;
+}
+
+@media (min-width: 1024px) {
+  .navbar-end {
+    padding-right: 248px;
+  }
+}

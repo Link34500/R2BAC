@@ -1,0 +1,23 @@
+{% load tags %}
+
+
+{% if widget.type == "checkbox" %}
+<label class="checkbox">
+  <input class="{{widget.type|is_writable}}" type="{{ widget.type }}" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
+  {{ field.label|safe }}
+</label>
+{% elif widget.type == "file" %}
+<div class="file">
+  <label class="file-label">
+    <input class="file-input" type="{{ widget.type }}" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
+    <span class="file-cta">
+      <span class="file-icon">
+        <i class="fas fa-upload"></i>
+      </span>
+      <span class="file-label">Choisir un fichier</span>
+    </span>
+  </label>
+</div>
+{% else %}
+  <input class="{{widget.type|is_writable}}" type="{{ widget.type }}" name="{{ widget.name }}"{% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
+{% endif %}

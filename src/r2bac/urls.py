@@ -23,6 +23,8 @@ from r2bac import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/',include('accounts.urls',"accounts")),
+    path('panel/',include('panel.urls','panel')),
+    path('courses/',include('courses.urls',"courses")),
     path('jobs/',index,name="jobs"),
     path('cgu/',cgu,name="cgu"),
     path('privacy_policy',privacy_policy,name="privacy_policy"),

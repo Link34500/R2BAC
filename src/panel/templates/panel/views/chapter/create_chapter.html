@@ -1,0 +1,20 @@
+{% extends 'panel/base.html' %}
+{% load tags %}
+{% load static %}
+
+{% block content %}
+<script src="{% static 'panel/js/chapter.js' %}" defer></script>
+<section class="section">
+      <form method="post">
+        {% csrf_token %}
+        {% include 'components/form.html'%}
+        {% block submit %}
+        {% endblock %}
+        <div>
+          <button type="submit" class="button is-primary">Crée le chapitre</button>
+          <button type="reset" class="button is-danger">Rénitialiser les changemments</button>
+        </div>
+      </form>
+
+    </section>
+{% endblock %}

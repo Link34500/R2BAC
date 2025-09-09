@@ -1,0 +1,30 @@
+{% extends 'panel/base.html' %}
+{% load tags %}
+{% load static %}
+
+{% block content %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js" defer></script>
+  <script src="{% static 'panel/js/edit_course.js' %}" defer></script>
+  <div class="columns is-desktop">
+    <div class="column">
+      <section class="section">
+          <form method="post">
+            {% csrf_token %}
+            {% include 'components/form.html' %}
+
+            {% block submit %}
+            {% endblock %}
+          </form>
+      </section>
+    </div>
+    <section class="column section">
+      <h1 class="title is-centered">Rendu</h1>
+      <h1 class="title">{% if form.name.value %}{{ form.name.value }}{% endif %}</h1>
+      <div class="content">
+        {% if form.content.value %}
+          {{form.content.value|to_markdown}}
+        {% endif %}
+      </div>
+    </section>
+  </div>
+{% endblock %}

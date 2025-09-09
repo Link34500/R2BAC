@@ -1,0 +1,26 @@
+{% extends 'panel/components/table.html'%}
+{% load static %}
+
+{% block thead %}
+  <th>UUID</th>
+  <th>Avatar</th>
+  <th>Nom</th>
+  <th>Prénom</th>
+  <th>Nom d'utilisateur</th>
+  <th>Adresse-Mail</th>
+  <th>Compte vérifié</th>
+  <th>Date de création</th>
+  <th>Dernière connexion</th>
+{% endblock %}
+
+{% block tbody %}
+  <th>{{ obj.info.uuid }}</th>
+  <td><img src='{% if obj.profile.avatar %}{{ obj.profile.avatar.url }}{% else %}{% static "avatar_blank.png" %}{% endif %}' class="is-32x32 profile-picture"/></td>
+  <td>{{ obj.last_name }}</td>
+  <td>{{ obj.first_name }}</td>
+  <td>{{ obj.username }}</td>
+  <td>{{ obj.email }}</td>
+  <td>{{ obj.info.is_verified }}</td>
+  <td>{{ obj.date_joined }}</td>
+  <td>{{ obj.last_login }}</td>
+{% endblock %}

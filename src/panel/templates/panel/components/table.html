@@ -1,0 +1,25 @@
+{% extends 'panel/base.html' %}
+
+{% block content %}
+  {% block main %}
+  {% endblock %}
+  <section class="container">
+    <table class="table is-hoverable is-fullwidth">
+      <thead>
+        <tr>
+          {% block thead %}
+          {% endblock %}
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for obj in object_list %}
+        <tr>
+          {% block tbody %}
+          {% endblock %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+{% endblock %}

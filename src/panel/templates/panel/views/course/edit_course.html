@@ -1,0 +1,12 @@
+{% extends 'panel/components/render.html' %}
+{% load static %}
+
+{% block submit %}
+<script src="{% static 'panel/js/chapter.js' %}" defer></script>
+<script src="{% static 'panel/js/course.js' %}" defer></script>
+<div class="mt-5">
+  <button class="button is-primary">Sauvegarder</button>
+  <button type="reset" class="button is-danger">Rénitialiser les changements</button>
+  <a class="button is-danger" href="{% url 'panel:delete_course' pk=object.id %}">Supprimer le cours</a>
+</div>
+{% endblock %}

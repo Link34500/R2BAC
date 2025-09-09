@@ -1,0 +1,80 @@
+.ms-multi-select-tag {
+  all: revert !important;
+  font-family: inherit !important;
+}
+
+.ms-multi-select-tag .ms-wrapper {
+  position: relative;
+}
+
+.ms-multi-select-tag .ms-tag-container {
+  display: flex;
+  padding: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  background-color: #fff;
+}
+
+.ms-multi-select-tag .ms-tag-input {
+  padding: 0.25rem;
+  flex-grow: 1;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  border: none;
+  background-color: #fff;
+  margin: 0;
+  line-height: 1.25rem;
+}
+
+.ms-multi-select-tag .ms-dropdown {
+  overflow: auto;
+  position: absolute;
+  z-index: 10;
+  padding: 0;
+  margin-top: 0.25rem;
+  border-radius: 0.25rem;
+  border: 1px solid #e5e7eb;
+  width: 100%;
+  max-height: 15rem;
+  background-color: #fff;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.ms-multi-select-tag .ms-li {
+  padding: 0.5rem;
+  cursor: pointer;
+  list-style-type: none;
+}
+
+.ms-multi-select-tag .ms-li:hover {
+  background-color: #e5e7eb;
+}
+
+.ms-multi-select-tag .ms-li-arrow {
+  background-color: #d1d5db;
+}
+
+.ms-multi-select-tag .ms-tag-item {
+  display: flex;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  align-items: center;
+  border-radius: 0.25rem;
+  color: #1e40af;
+  background-color: #dbeafe;
+}
+
+.ms-multi-select-tag .ms-cross {
+  margin-left: 0.25rem;
+  cursor: pointer;
+}
+
+.ms-multi-select-tag .ms-hidden {
+  display: none;
+}

@@ -12,9 +12,8 @@
     </div>
 
     <div class="card-content">
-      {% block card-content %}
       {% csrf_token %}
-      
+      {% block card-content %}
       {% block form %}
         {% include 'components/form.html' %}
       {% endblock %}

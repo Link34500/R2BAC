@@ -1,0 +1,11 @@
+{% extends 'panel/components/render.html' %}
+{% load static %}
+
+{% block submit %}
+<script src="{% static 'panel/js/chapter.js' %}" defer></script>
+<script src="{% static 'panel/js/course.js' %}" defer></script>
+<div class="mt-5">
+  <button class="button is-primary">Crée</button>
+  <button type="reset" class="button is-danger">Rénitialiser les changements</button>
+</div>
+{% endblock %}

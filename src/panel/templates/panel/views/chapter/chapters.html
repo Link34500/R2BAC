@@ -1,0 +1,33 @@
+{% extends 'panel/components/table.html' %}
+
+{% block main %}
+  <section class="section">
+    <h1 class="title">Liste des chapitres</h1>
+  </section>
+  <div class="fixed-grid has-4-cols">
+    <div class="grid">
+      <div class="cell is-col-from-end-2"> 
+        <a href="{% url 'panel:create_chapter'%}" class="button is-primary">+ Nouveau Chapitre</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block thead%}
+  <th>ID</th>
+  <th>Classe</th>
+  <th>Matière</th>
+  <th>Numéro de chapitre</th>
+  <th>Titre</th>
+  <th>Url</th>
+{% endblock %}
+
+{% block tbody %}
+  <td>{{obj.id}}</td>
+  <td>{{obj.subject.grade}}</td>
+  <td>{{obj.subject}}</td>
+  <td>{{obj.number}}</td>
+  <td>{{obj.name}}</td>
+  <td>{{obj.slug}}</td>
+  <td><a class="button is-primary" href="{% url 'panel:edit_chapter' pk=obj.id %}">✏️</a></td>
+{% endblock %}

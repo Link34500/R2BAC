@@ -1,0 +1,13 @@
+{% extends 'components/card.html' %}
+
+{% block card-top %}
+  <h1 class="card-header-title is-centered">⚠️ Attention</h1>
+{% endblock %}
+
+{% block card-content %}
+  <p>Êtes-vous sûr de vouloir supprimer définitivement "{{ object.name }}" ?</p>
+{% endblock %}
+
+{% block card-bottom %}
+  <button class="button is-danger m-3" type="submit">Oui, je suis sûr de ce que je fais</button>
+{% endblock %}

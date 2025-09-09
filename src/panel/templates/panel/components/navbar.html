@@ -1,0 +1,28 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'panel/css/navbar.css' %}">
+<header>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <h1 class="navbar-item title is-4">Panel Administration</h1>
+
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navmenu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+      
+    </div>
+    <div id="navmenu" class="navbar-menu">
+      <div class="navbar-end">
+        <a href="{% url 'panel:courses' %}" class="navbar-item">Cours</a>
+        <a href="{% url 'panel:chapters' %}" class="navbar-item">Chapitres</a>
+        <a href="{% url 'panel:users' %}" class="navbar-item">Utilisateurs</a>
+        <a href="{% url 'panel:logs' %}" class="navbar-item">Logs</a>
+      </div>
+
+    </div>
+  </nav>
+
+</header>

@@ -1,2 +1,3 @@
+/.venv
+src/r2bac/settings.py
 .env
-r2bac/settings.py
