@@ -1,37 +1,50 @@
 {% extends 'courses/base.html' %}
 {% load static %}
-
+{% load tags %}
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'courses/css/box.css' %}">
+
 <section class="section is-medium">
-  <h1 class="title">Les {{ title }}</h1>
-{% if object_list %}
-<div class="columns is-desktop">
-  
-  {% for object in object_list %}
-  <div class="column is-desktop">
-    <a href="{{object.slug}}" class="button is-primary is-large is-fullwidth">{{object.name}}</a>
+  <div class="container">
+    <h1 class="title has-text-centered mb-6">Les {{ title }}</h1>
+
+    {% if object_list %}
+    <div class="columns">
+      {% for object in object_list %}
+      <div class="column">
+        <a href="{{ object.slug }}">
+          <div class="card has-text-centered hoverable is-shadowless" style="transition: transform 0.2s, box-shadow 0.2s;">
+            <div class="card-content">
+              <p class="button is-primary is-large is-fullwidth is-light">
+                {% if object.number %}{{ object.number|roman_convert }}. {% endif %}{{ object.name }}
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="notification is-warning is-light has-text-centered">
+      <span class="icon-text is-align-items-center">
+        <span class="icon has-text-warning">
+          <i class="fas fa-exclamation-triangle"></i>
+        </span>
+        <span>
+          Nous nous efforçons de proposer un maximum de contenu.  
+          Si vous souhaitez qu’un contenu soit intégré plus rapidement, contactez-nous sur notre 
+          <a href="https://discord.gg/tonlien" target="_blank">Discord</a> 
+          ou via le <a href="{% url 'contact' %}">formulaire de contact</a>.
+        </span>
+      </span>
+    </div>
+
+    <section class="section has-text-centered">
+      <h1 class="subtitle is-4 has-text-grey">🙁 Aucun contenu disponible pour le moment</h1>
+    </section>
+    {% endif %}
   </div>
-  {% endfor %}
-</div>
-{% else %}
-<section class="section">
-<div class="box has-background-warning">
-  <span class="icon-text has-text-white">
-    <span class="icon">
-      <i class="fas fa-exclamation-triangle"></i>
-    </span>
-    <span>
-      Nous nous efforçons de proposer un maximum de contenu. Si vous souhaitez qu’un contenu soit intégré plus rapidement, vous pouvez nous contacter
-      sur notre Discord ou bien à l’aide de notre formulaire de contact <a class="has-text-danger" href="{% url 'contact' %}">ici</a>.
-    </span>
-  </span>
-</div>
 </section>
 
-<section class="section is-full has-text-centered">
-  <h1 class="subtitle">Aucun contenu disponible</h1>
-</section>
-{% endif %}
 {% endblock %}

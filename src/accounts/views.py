@@ -7,6 +7,7 @@ from django.urls import reverse_lazy,reverse
 from django.contrib import messages
 from django.shortcuts import redirect,render,get_object_or_404
 from common.utils.messages import message as _
+from django.shortcuts import render
 # Create your views here.
 
 class RegisterView(TitleMixin,LogoutRequieredMixin,FormView):
@@ -131,6 +132,7 @@ class SettingsView(LoginRequiredMixin,FormView):
     success_url = reverse_lazy("accounts:settings")
     form_class = PasswordChangeForm
 
+
     def get(self,request,*args,**kwargs):
         pwdc = self.request.GET.get("pwdc")
         if pwdc == "true":
@@ -155,4 +157,3 @@ class DeleteAccountView(LoginRequiredMixin,DeleteView):
     template_name = "accounts/settings/delete.html"
     def get_object(self):
         return self.request.user
-

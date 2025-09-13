@@ -1,49 +1,60 @@
-{% extends 'base.html' %} 
+{% extends 'r2bac/base.html' %}
 
-{% block page %}
-
-{% include 'components/navbar.html'%}
+{% block content %}
 
 
-<main>
-  <section class="hero is-white is-large">
-    <div class="hero-body is-primary">
-      <div class="container">
-        <h1 class="title">R2BAC</h1>
-        <h2 class="subtitle">La route la plus facile et rapide</h2>
-
-        <div class="block">
-          <p class="is-text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
-            labore reprehenderit rerum ut nobis sint neque asperiores, ad,
-            corporis magni dignissimos exercitationem earum ipsa a adipisci sunt
-            quisquam, magnam nihil?
-          </p>
-          <a class="button mt-3 is-primary">Découvrir</a>
-        </div>
-      </div>
+<section class="hero is-light is-large">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title is-1 has-text-primary">R2BAC</h1>
+      <h2 class="subtitle is-4">La route la plus facile et rapide vers le BAC</h2>
+      <p class="is-size-5 mt-4">
+        R2BAC est un projet créé par des lycéens pour des lycéens, offrant des cours et ressources en ligne pour réussir le bac.
+      </p>
+      <a href="#features" class="button is-primary is-medium mt-5">Découvrir</a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section has-background-primary has-text-white">
-    <h1 class="title has-text-centered has-text-white">
-      Des cours 100% Gratuit
-    </h1>
-    <div class="columns">
-      {% for card in cards %}
+
+<section id="features" class="section has-background-primary has-text-white">
+  <div class="container has-text-centered">
+    <h2 class="title is-3 has-text-white">Pourquoi choisir R2BAC ?</h2>
+    <p class="is-size-5 mb-5">
+      Une plateforme conçue par des étudiants, pour rendre l’apprentissage du bac simple, rapide et accessible à tous.
+    </p>
+    <div class="columns is-multiline">
       <div class="column is-one-third">
-        <div class="card">
-          <div class="card-header">
-            <p class="card-header-title">{{ card.title }}</p>
-          </div>
-          <div class="card-content">{{ card.content }}</div>
+        <div class="box has-text-left">
+          <h3 class="title is-5">Cours structurés</h3>
+          <p>Des cours clairs et complets, rédigés par des lycéens pour faciliter la compréhension et la révision.</p>
         </div>
       </div>
-      {% endfor %}
+      <div class="column is-one-third">
+        <div class="box has-text-left">
+          <h3 class="title is-5">Exercices et corrections</h3>
+          <p>Chaque cours est accompagné d’exercices pratiques et de corrigés détaillés pour progresser efficacement.</p>
+        </div>
+      </div>
+      <div class="column is-one-third">
+        <div class="box has-text-left">
+          <h3 class="title is-5">Communauté et conférences</h3>
+          <p>Rejoignez notre Discord et nos groupes pour l’entraide, et participez à des conférences régulières animées par des étudiants motivés.</p>
+        </div>
+      </div>
     </div>
-  </section>
-</main>
+  </div>
+</section>
 
-{% include 'components/footer.html' %}
+
+<section class="section has-background-white has-text-centered has-text-black">
+  <div class="container">
+    <h2 class="title is-3 has-text-primary">Rejoignez l’aventure !</h2>
+    <p class="is-size-5 mb-4">
+      Créez votre compte gratuitement et accédez à toutes les ressources, exercices et conférences.
+    </p>
+    <a href="{% url 'accounts:register' %}" class="button is-light is-large">Créer un compte</a>
+  </div>
+</section>
 
 {% endblock %}

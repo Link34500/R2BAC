@@ -1,3 +1,4 @@
 .venv/
 src/r2bac/settings.py
 .env
+.prettierignore

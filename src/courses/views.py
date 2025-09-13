@@ -2,6 +2,7 @@ from django.views.generic import *
 from .models import *
 from .mixins import *
 from django.shortcuts import get_object_or_404
+from django.shortcuts import render
 
 # Create your views here.
 
@@ -36,4 +37,4 @@ class CourseView(DetailView):
   template_name = "courses/views/course.html"
   slug_field = "slug"
   slug_url_kwarg = "course_id"
-  
+

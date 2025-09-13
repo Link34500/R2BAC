@@ -3,12 +3,17 @@ from .models import *
 from uuid import uuid4
 from django.contrib.auth import authenticate
 from common.utils.messages import message as _
-from django.shortcuts import render
+from .validators import *
 
 
 class RegisterForm(forms.ModelForm):
     received_email = forms.BooleanField(widget=forms.CheckboxInput(),required=False,label=_("LABEL_SUBSCRIBE_NEWSLETTER"))
     cgu = forms.BooleanField(required=True,label=_("LABEL_CGU_ACCEPT"))
+    username = forms.CharField(max_length=22,required=True,label=_("LABEL_USERNAME"),validators=[username_validator])
+    first_name = forms.CharField(max_length=30,required=False,label=_("LABEL_FIRST_NAME"),validators=[name_validator])
+    last_name = forms.CharField(max_length=30,required=False,label=_("LABEL_LAST_NAME"),validators=[name_validator])
+    email = forms.EmailField(max_length=255,required=True,label=_("LABEL_EMAIL"),validators=[email_validator])
+    password = forms.CharField(max_length=256,required=True,label=_("LABEL_PASSWORD"),widget=forms.PasswordInput(),validators=[password_validator])
 
     class Meta:
         model = User
@@ -17,7 +22,39 @@ class RegisterForm(forms.ModelForm):
             "password":forms.PasswordInput()
         }
 
-    ###! IL RESTE LES VERIFICAITONS DU FORMAT DES IDENTIFIANTS A FAIRE !###
+    def clean_email(self):
+        """Récupère l'email et vérifie qu'il n'est pas déjà utilisé par un autre utilisateur
+
+        Raises:
+            forms.ValidationError: Si l'adresse mail est déjà utilisé par un autre utilisateur
+
+        Returns:
+            (User): Retourne l'utilisateur si tout est bon
+        """
+        email = self.cleaned_data["email"]
+        try:
+            User.objects.get(email=email)
+            raise forms.ValidationError(_("ERROR_EMAIL_ALREADY_USED"))
+        except User.DoesNotExist:
+            pass
+        return email
+
+    def clean_username(self):
+        """Récupère le username et vérifie qu'il n'est pas déjà utilisé par un autre utilisateur
+
+        Raises:
+            forms.ValidationError: Si le nom d'utilisateur est déjà utilisé par un autre utilisateur
+
+        Returns:
+            (User): Retourne l'utilisateur si tout est bon
+        """
+        username = self.cleaned_data["username"]
+        try:
+            User.objects.get(username=username)
+            raise forms.ValidationError(_("ERROR_USERNAME_ALREADY_USED"))
+        except User.DoesNotExist:
+            pass
+        return username
 
     def save(self,commit=True):
         """Sauvegarde l'utilisateur en base de donnée crée le profile et les infos...
@@ -75,11 +112,42 @@ class LoginForm(forms.Form):
 
 
 class ProfileForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=30,required=False,label=_("LABEL_FIRST_NAME"),validators=[name_validator])
+    last_name = forms.CharField(max_length=30,required=False,label=_("LABEL_LAST_NAME"),validators=[name_validator])
+    username = forms.CharField(max_length=22,required=True,label=_("LABEL_USERNAME"),validators=[username_validator])
     avatar = forms.FileField(widget=forms.FileInput(attrs={"accept":"image/png, image/jpeg"}),required=False)
     name_is_username = forms.BooleanField(required=False,label=_("LABEL_NAME_IS_USERNAME"))
     class Meta:
         model = User
         fields = ["avatar","first_name","last_name","username"]
+
+    def clean_avatar(self):
+        avatar = self.cleaned_data["avatar"]
+        if avatar:
+            if avatar.size > 5*1024*1024:
+                raise forms.ValidationError(_("ERROR_AVATAR_SIZE"))
+            if not avatar.content_type in ["image/png","image/jpeg"]:
+                raise forms.ValidationError(_("ERROR_AVATAR_FORMAT"))
+        avatar.name = f"{uuid4()}.{avatar.name.split('.')[-1]}" # Renomme le fichier avec le format uuid.extension
+        return avatar
+
+    def clean_username(self):
+        """Récupère le username et vérifie qu'il n'est pas déjà utilisé par un autre utilisateur
+
+        Raises:
+            forms.ValidationError: Si le nom d'utilisateur est déjà utilisé par un autre utilisateur
+
+        Returns:
+            (User): Retourne l'utilisateur si tout est bon
+        """
+        username = self.cleaned_data["username"]
+        try:
+            user = User.objects.get(username=username)
+            if self.instance.pk != user.pk:
+                raise forms.ValidationError(_("ERROR_USERNAME_ALREADY_USED"))
+        except User.DoesNotExist:
+            pass
+        return username
 
     def save(self, commit = True):
         """Mets à jour les infos de l'instance
@@ -102,8 +170,7 @@ class ProfileForm(forms.ModelForm):
 
 
 class SendResetPasswordForm(forms.Form):
-    email = forms.EmailField(max_length=255,required=True)
-    ### AJOUTER LES VALDIEURS POUR L'EMAIL
+    email = forms.EmailField(max_length=255,required=True,validators=[email_validator])
     
     def clean_email(self):
         email = self.cleaned_data["email"]
@@ -114,10 +181,10 @@ class SendResetPasswordForm(forms.Form):
         return email
 
 class PasswordResetForm(forms.Form):
-    new_password = forms.CharField(required=True,widget=forms.PasswordInput())
+    new_password = forms.CharField(required=True,widget=forms.PasswordInput(),validators=[password_validator])
     confirm_new_password = forms.CharField(required=True,widget=forms.PasswordInput())
     
-    ###! AJOUTER LES VALIDATEURS POUR LE NEW_PASSWORD###!
+
     def clean(self):
         """Vérifie que les mots de passes sont valides et qu'ils correspondent entres eux.
 
@@ -137,7 +204,7 @@ class PasswordResetForm(forms.Form):
 
         if new_password != confirm_new_password:
             raise forms.ValidationError(_("ERROR_PASSWORDS_NOT_MATCH"))
-        
+
         return clean_data
 
     def update(self, user:User):
@@ -150,12 +217,11 @@ class PasswordResetForm(forms.Form):
         return user
 
 class PasswordChangeForm(forms.Form):
-    old_password = forms.CharField(required=True,widget=forms.PasswordInput(),label=_("PASSWORD"))
+    old_password = forms.CharField(required=True,widget=forms.PasswordInput(),label=_("LABEL_PASSWORD"))
 
-    new_password = forms.CharField(required=True,widget=forms.PasswordInput(),label=_("NEW_PASSWORD"))
+    new_password = forms.CharField(required=True,widget=forms.PasswordInput(),label=_("NEW_PASSWORD"),validators=[password_validator])
     confirm_new_password = forms.CharField(required=True,widget=forms.PasswordInput(),label=_("CONFIRM_NEW_PASSWORD"))
 
-    ###! IMPLEMETER LES VALIDATEURS !###
 
     def __init__(self,user,*args,**kwargs):
         super(PasswordChangeForm,self).__init__(*args,**kwargs)
@@ -170,12 +236,12 @@ class PasswordChangeForm(forms.Form):
 
     def clean(self):
         """Reprend les mêmes propriété de la méthode PasswordReset.clean"""
+        
         return PasswordResetForm.clean(self)
 
     def update(self):
         self.user.set_password(self.cleaned_data["new_password"])
 
-def delete(request):
-    render(request,"accounts/delete.html")
+
 
 

@@ -14,8 +14,8 @@
         <div class="dropdown-content">
           <a href="{% url 'accounts:profile'%}" class="dropdown-item">Profil</a>
           <a href="{% url 'accounts:settings' %}" class="dropdown-item">Paramètres</a>
-          {% if request.user.is_superuser %}
-          <a href="{% url 'panel:home' %}" class="has-background-danger has-text-white dropdown-item">Administration</a>
+          {% if request.user.is_staff %}
+          <a href="{% url 'panel:home' %}" class="dropdown-item">Panel</a>
           {% endif %}
           <hr class="dropdown-divider" />
           <a href="{% url 'accounts:logout' %}" class="dropdown-item">Déconnexion</a>
@@ -42,8 +42,7 @@
   </div>
 
   <div id="navMenu" class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item" href="{% url 'home' %}"> Page d'acceuil </a>
+    <div class="navbar-start ml-5">
       <a class="navbar-item is-capitalized" href="{% url 'a-propos' %}">à propos </a>
       <a href="{% url 'contact' %}" class="navbar-item">Nous contacter</a>
 

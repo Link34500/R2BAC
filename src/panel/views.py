@@ -5,22 +5,21 @@ from .models import *
 from .forms import *
 from courses.models import Course,Chapter
 from django.http import JsonResponse,Http404
-
-import json
+from .mixins import PanelPageMixin
 
 # Create your views here.
 
-class PanelView(TemplateView):
+class PanelView(PanelPageMixin,TemplateView):
     template_name = "panel/views/index.html"
 
-class UsersView(ListView):
+class UsersView(PanelPageMixin,ListView):
     model = User
     template_name = "panel/views/users.html"
 
     def get_queryset(self):
         return User.objects.all()
 
-class LogsView(ListView):
+class LogsView(PanelPageMixin,ListView):
     model = Log
     template_name = "panel/views/logs.html"
 
@@ -36,7 +35,7 @@ class LogsView(ListView):
         return Log.objects.all()
 
 
-class CoursesView(ListView):
+class CoursesView(PanelPageMixin,ListView):
     model = Course
     template_name = "panel/views/course/courses.html"
 
@@ -44,14 +43,14 @@ class CoursesView(ListView):
         return Course.objects.all()
     
 
-class ChatpersView(ListView):
+class ChatpersView(PanelPageMixin,ListView):
     model = Chapter
     template_name = "panel/views/chapter/chapters.html"
     
     def get_queryset(self):
         return Chapter.objects.all()
     
-class CreateCourseView(CreateView):
+class CreateCourseView(PanelPageMixin,CreateView):
     model = Course
     template_name = "panel/views/course/create_course.html"
     form_class = CourseForm
@@ -67,7 +66,7 @@ class CreateCourseView(CreateView):
         self.object.author = self.request.user
         return super().form_valid(form)
 
-class EditCourseView(UpdateView):
+class EditCourseView(PanelPageMixin,UpdateView):
     model = Course
     template_name = "panel/views/course/edit_course.html"
     form_class = CourseForm
@@ -82,12 +81,12 @@ class EditCourseView(UpdateView):
         self.object.contributors.set(form.cleaned_data["contributors"])
         return super().form_valid(form)
 
-class DeleteCourseView(DeleteView):
+class DeleteCourseView(PanelPageMixin,DeleteView):
     model = Course
     template_name = "panel/components/delete.html"
     success_url = reverse_lazy("panel:courses")
 
-class CreateChapterView(CreateView):
+class CreateChapterView(PanelPageMixin,CreateView):
     model = Chapter
     template_name = "panel/views/chapter/create_chapter.html"
     form_class = ChapterForm
@@ -96,7 +95,7 @@ class CreateChapterView(CreateView):
         self.success_url = reverse("panel:edit_chapter",kwargs={"pk":self.object.id})
         return super().get_success_url()
     
-class EditChapterView(UpdateView):
+class EditChapterView(PanelPageMixin,UpdateView):
     model = Chapter
     template_name = "panel/views/chapter/edit_chapter.html"
     form_class = ChapterForm
@@ -105,7 +104,7 @@ class EditChapterView(UpdateView):
         self.success_url = self.request.path
         return super().get_success_url()
 
-class DeleteChapterView(DeleteView):
+class DeleteChapterView(PanelPageMixin,DeleteView):
     model = Chapter
     template_name = "panel/components/delete.html"
     success_url = reverse_lazy("panel:chapters")

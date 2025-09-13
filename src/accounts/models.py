@@ -65,7 +65,7 @@ class UserInfo(models.Model):
         cgu (bool): Conditions d'utilisation accepter ?
         received_email: Accepte de recevoir des email ?
     """
-    user = models.OneToOneField(User,related_name="info",on_delete=models.CASCADE)
+    user = models.OneToOneField(User,related_name="info",on_delete=models.CASCADE,null=True,blank=False)
     uuid = models.UUIDField(unique=True,editable=False,null=False)
     premium = models.BooleanField(default=False)
     verify_token = models.CharField(max_length=64,null=True)
