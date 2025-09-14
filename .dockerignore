@@ -1,1 +1,3 @@
 .venv/
+dev.Dockerfile
+dev.compose.yml

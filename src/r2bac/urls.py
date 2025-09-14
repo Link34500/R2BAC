@@ -32,4 +32,4 @@ urlpatterns = [
     path('contact/',ContactView.as_view(),name="contact"),
     path('a-propos/',apropos,name="a-propos"),
     path('',index,name="home"),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # a desactiver en prod
+]

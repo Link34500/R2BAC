@@ -24,11 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get("DEBUG", default=0))
+DEBUG = os.environ.get("DEBUG", "0").lower() in ["1", "true", "yes"]
+
+
  
-ALLOWED_HOSTS = ["*"] # A désactiver en prod
-
-
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS",",").split(",")
 
 # Application definition
 
@@ -136,19 +136,33 @@ MEDIA_ROOT = Path(BASE_DIR / "media")
 
 MEDIA_URL = "/media/"
 
-# A activé en prod
 
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 DEBUG_EMAIL = 'no-reply@r2bac.fr'
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_HOST = os.environ.get("EMAIL_HOST")
 EMAIL_PORT = os.environ.get("EMAIL_PORT")
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
 
-STATICFILES_DIRS = [Path(BASE_DIR / "r2bac" / "static")]
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = "DENY"
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_HTTPONLY = True
+
+SECURE_HSTS_SECONDS = 31536000  # 1 an
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+
+STATICFILES_DIRS = [BASE_DIR / "r2bac" / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"

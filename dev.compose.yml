@@ -11,7 +11,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
     env_file:
       - .env
-    
+
   r2bac:
     build: .
     container_name: r2bac-docker
@@ -31,6 +31,9 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_PORT: ${DATABASE_PORT}
+    # Création du volume pour éviter de rebuild (Mode dévelopemment)
+    volumes:
+      - .:/app
     env_file:
       - .env
 volumes:
