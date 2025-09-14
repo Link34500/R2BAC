@@ -2,3 +2,4 @@
 src/r2bac/settings.py
 .env
 .prettierignore
+src/media/*

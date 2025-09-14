@@ -1,73 +1,112 @@
 # R2BAC
 
-Plateforme Open-Source développer par une équipe indépendante, de lycéens.
-Cette plateforme à pour but d'aider les lycéens à réussir leurs années scolaire de la Seconde à la Terminal.
+R2BAC est une **plateforme open-source développée par une équipe indépendante de lycéens**.
+Elle a pour objectif d'aider les lycéens à réussir leurs années scolaires, de la Seconde à la Terminale.
 
-## Fonctionnalitées
+---
+
+## Fonctionnalités
 
 - Système d'authentification sécurisé
-- Système de profil personnalisée pour utilisateur
+- Profils utilisateurs personnalisables
+- Gestion des cours et chapitres
+- Système de commentaires et réponses sur les cours X
+- Panel de gestion pour les enseignants et administrateurs X # Il faussi pouvoir envoyer des emails
+- Interface potable et responsive
+- Notifications pour les nouveaux cours ou mises à jour par email
+- Création d'articles X
+- News Letter X
+
+---
+
+## Prérequis
+
+Avant d'installer R2BAC, assurez-vous d'avoir :
+
+- [Docker](https://www.docker.com/) et [Docker Compose](https://docs.docker.com/compose/install/)
+- [Git](https://git-scm.com/downloads) pour cloner le projet
+- Une connexion internet stable pour télécharger les images Docker
+
+---
 
 ## Installation
 
-Pour effectuer le lancemment du site de R2BAC en local c'est assez simple. Il vous suffis de télécharger [Docker](https://www.docker.com/), et [Docker Compose](https://docs.docker.com/compose/install/) si vous n'avez pas installer Docker Desktop.
-
-Une fois Docker installer vous devez cloner le projet et y accéder via les commandes suivantes dans un Terminal :
-
-> [!NOTE]
-> ⚠️ [git](https://git-scm.com/downloads) est nécessaire pour pouvoir cloner le projet
+1. Clonez le dépôt :
 
 ```bash
 git clone https://github.com/Link34500/R2BAC.git
 cd R2BAC
 ```
 
+2. Lancez le projet avec Docker Compose :
+
+```bash
+docker-compose up -d
+```
+
+3. Accédez à la plateforme depuis votre navigateur :
+
+```
+http://localhost:8000
+```
+
+> Les ports peuvent être configurés dans le fichier `docker-compose.yml` si nécessaire.
+
 ---
 
-## Note
+## Utilisation
 
-- Vous devez faire attention et effectuer des vérification lors de la soummission de formulaire avec POST qui peut engedrer des attaques par DoS
-- Egalemment réaliser une limite de requête GET sinon cela peut engendrer le même type d'attaque
+- **Création d'un compte :** Inscrivez-vous avec votre email et mot de passe pour accéder aux cours.
+- **Navigation :** Accédez aux cours par matière et par chapitre.
+- **Commentaires :** Participez aux discussions et posez des questions sur les cours.
+- **Panel enseignants :** Créez, modifiez ou supprimez des cours et chapitres. Gérez les utilisateurs et leurs permissions.
 
-## Prochainemment
+---
 
-### Accounts
+## Contribution
 
-- Implémenter les validateurs #
-- Permettre la rénitialisation de mot de passe #
-- Expiration du token de rénitialisation #
-- Permettre la supression de compte #
-- Permettre de changer sont mot de passe #
+Nous accueillons toutes les contributions !
 
-### Securité (Cooldown)
+Pour contribuer :
 
-- Cooldown de 15 minutes si on modifie le profil plus de 3 fois dans la même heure
-- Créer un cooldown pour l'envoie de mail
+1. Fork le projet
+2. Créez une branche pour votre fonctionnalité ou correction de bug :
 
-### Sécurité Limite
+```bash
+git checkout -b ma-fonctionnalite
+```
 
-- Empecher d'envoyer des fichiers de plus de 5Mo
-- Changer le nom du fichier de la pp avec l'uuid de l'utilisateur.
+3. Commitez vos changements :
 
-### Cours
+```bash
+git commit -m "Ajout d'une nouvelle fonctionnalité"
+```
 
-- Permettre de visionner les cours
-- Permettre de commenter
-- Permettre de répondre à un commentaire
-- Cooldown entres commentaires
+4. Poussez votre branche :
 
-### Panel
+```bash
+git push origin ma-fonctionnalite
+```
 
-- Pouvoir créer des cours/chapitres pour les profs.
-- Pouvoir créer des classes et des matières pour les administrateur
-- Panel de gestion utilisateur : role,informations, possibilitée de modifié les informations...
+5. Ouvrez une Pull Request sur GitHub.
 
-### Pour le front
+---
 
-- Faire en sorte que la barre de sauvegarde ne s'affiche que si un changemment est effectuer (Un champ est modifié) dans le profile.html
-- Faire en sorte de pouvoir redimensionner le logo
+## Support
 
-### Après front end
+Pour toute question ou problème, contactez-nous via GitHub Issues ou notre Discord.
 
-- Crée un système de Quiz.
-- Mettre une partie Annales
+---
+
+## Licence
+
+R2BAC est sous licence **NCCL**. Consultez le fichier `LICENSE` pour plus de détails.
+
+---
+
+## Technologies utilisées
+
+- Python / Django
+- HTML, CSS/SCSS, Bulma, JavaScript
+- PostgreSQL
+- Docker & Docker Compose

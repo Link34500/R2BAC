@@ -1,9 +1,17 @@
-{% extends 'courses/base.html' %} {% load tags %} {% block content %}
-<section class="section has-background-white-bis" style="height: 100%">
-  <div class="box" style="height: 100%; width: 90%; margin: auto">
-    <div class="content">
-      <h1>{{ object.name }}</h1>
-      {{ object.content|to_markdown }}
+{% extends 'courses/base.html' %}
+{% load tags %}
+
+{% block content %}
+<section class="section has-background-white-bis" style="min-height: 100vh;">
+  <div class="container">
+    <div class="box" style="max-width: 900px; margin: auto; padding: 2rem;">
+      <div class="content">
+        <h1 class="title is-2 has-text-centered mb-5">{{ object.name }}</h1>
+        
+        <div class="markdown-body">
+          {{ object.content|to_markdown }}
+        </div>
+      </div>
     </div>
   </div>
 </section>

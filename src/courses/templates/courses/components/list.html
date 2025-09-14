@@ -16,7 +16,7 @@
         <a href="{{ object.slug }}">
           <div class="card has-text-centered hoverable is-shadowless" style="transition: transform 0.2s, box-shadow 0.2s;">
             <div class="card-content">
-              <p class="button is-primary is-large is-fullwidth is-light">
+              <p class="button is-primary is-large is-fullwidth">
                 {% if object.number %}{{ object.number|roman_convert }}. {% endif %}{{ object.name }}
               </p>
             </div>
@@ -34,7 +34,7 @@
         <span>
           Nous nous efforçons de proposer un maximum de contenu.  
           Si vous souhaitez qu’un contenu soit intégré plus rapidement, contactez-nous sur notre 
-          <a href="https://discord.gg/tonlien" target="_blank">Discord</a> 
+          <a href="{{discord_url}}" target="_blank">Discord</a> 
           ou via le <a href="{% url 'contact' %}">formulaire de contact</a>.
         </span>
       </span>

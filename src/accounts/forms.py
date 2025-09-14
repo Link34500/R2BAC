@@ -128,7 +128,7 @@ class ProfileForm(forms.ModelForm):
                 raise forms.ValidationError(_("ERROR_AVATAR_SIZE"))
             if not avatar.content_type in ["image/png","image/jpeg"]:
                 raise forms.ValidationError(_("ERROR_AVATAR_FORMAT"))
-        avatar.name = f"{uuid4()}.{avatar.name.split('.')[-1]}" # Renomme le fichier avec le format uuid.extension
+            avatar.name = f"{uuid4()}.{avatar.name.split('.')[-1]}" # Renomme le fichier avec le format uuid.extension
         return avatar
 
     def clean_username(self):
@@ -161,6 +161,8 @@ class ProfileForm(forms.ModelForm):
         """
         instance = super().save(commit=False)
         if self.cleaned_data["avatar"]:
+            if instance.profile.avatar:
+                instance.profile.avatar.delete(save=False) # Supprime l'ancien avatar
             instance.profile.avatar = self.cleaned_data["avatar"]
         instance.profile.name_is_username = self.cleaned_data["name_is_username"]
         if commit:
