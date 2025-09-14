@@ -1,19 +1,175 @@
 {% extends 'courses/base.html' %}
 {% load tags %}
+{% load static %}
 
 {% block content %}
+<script src="{% static 'courses/js/form_response.js' %}" defer></script>
 <section class="section has-background-white-bis" style="min-height: 100vh;">
   <div class="container">
+
+    <!-- 📌 Contenu principal -->
     <div class="box" style="max-width: 900px; margin: auto; padding: 2rem;">
       <div class="content">
         <h1 class="title is-2 has-text-centered mb-5">{{ object.name }}</h1>
-        
         <div class="markdown-body">
           {{ object.content|to_markdown }}
         </div>
       </div>
     </div>
+
+    <!-- 🔙 Bouton retour -->
+    <div class="section has-text-centered">
+      <a href="javascript:history.back()" class="button is-link is-light">
+        ← Retour
+      </a>
+    </div>
+
+    <!-- 💬 Formulaire de commentaire -->
+    <article class="media">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img src="{{ request.user.profile.avatar.url }}" class="is-rounded" />
+        </p>
+      </figure>
+      <div class="media-content">
+        <form method="post">
+          {% if user.is_authenticated %}
+            {% csrf_token %}
+          {% endif %}
+          <div class="field">
+            <p class="control">
+              {% if user.is_authenticated %}
+                {{ form.content }}
+              {% else %}
+                <textarea class="textarea" readonly>Vous devez être connecté pour poster un commentaire.</textarea>
+              {% endif %}
+            </p>
+          </div>
+          <div class="level">
+            <div class="level-left">
+              <div class="level-item">
+                <button class="button is-primary" {% if not user.is_authenticated %}disabled{% endif %}>
+                  Envoyer
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </article>
+
+    <!-- 📝 Liste des commentaires -->
+    <div class="section" style="max-width: 800px; margin: auto;">
+      <h2 class="title is-4 mb-4">Commentaires</h2>
+
+      {% if comments %}
+        {% for comment in comments %}
+          {% if not comment.parent %}
+            <article class="media mb-4">
+              <!-- Avatar -->
+              <figure class="media-left">
+                <p class="image is-64x64">
+                  <img src="{{ comment.author.profile.avatar.url }}"
+                       alt="{{ comment.author.profile.get_username }}"
+                       class="is-rounded">
+                </p>
+              </figure>
+
+              <!-- Contenu du commentaire -->
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>{{ comment.author.profile.get_username }}</strong>
+                    <small class="has-text-grey">· {{ comment.created_at|date:"d M Y H:i" }}</small>
+                    <br>
+                    {{ comment.content }}
+                  </p>
+                  <small>
+                    {% if request.user.is_authenticated %}
+                      <a class="reply-button">Répondre</a>
+                    {% endif %}
+                    {% if comment.author == request.user or request.user.is_staff %}
+                      · <a class="has-text-danger" href="{% url 'courses:delete_comment' comment.id %}">Supprimer</a>
+
+                    {% endif %}
+                  </small>
+                </div>
+
+                <!-- Affichage des réponses -->
+                {% for reply in comment.replies.all %}
+                  <!-- ↩️ Réponse à un commentaire -->
+                  <article class="media" style="margin-left: 3rem; background-color: #f9f9f9;">
+                    <!-- Avatar -->
+                    <figure class="media-left">
+                      <p class="image is-48x48">
+                        <img src="{{ reply.author.profile.avatar.url }}"
+                             alt="{{ reply.author.profile.get_username }}"
+                             class="is-rounded">
+                      </p>
+                    </figure>
+
+                    <!-- Contenu de la réponse -->
+                    <div class="media-content">
+                      <div class="content">
+                        <p>
+                          <strong>{{ reply.author.profile.get_username }}</strong>
+                          <small class="has-text-grey">· {{ reply.created_at|date:"d M Y H:i" }}</small>
+                          <br>
+                          {{ reply.content }}
+                        </p>
+                      </div>
+                    </div>
+                  </article>
+                {% endfor %}
+                
+                
+                <!-- Affichage du formulaire de réponse -->
+                <article class="media is-hidden reply-form">
+                  <figure class="media-left">
+                    <p class="image is-64x64">
+                      <img src="{{ request.user.profile.avatar.url }}" class="is-rounded" />
+                    </p>
+                  </figure>
+                  <div class="media-content">
+                    <form method="post">
+                      {% if user.is_authenticated %}
+                        {% csrf_token %}
+                      {% endif %}
+                      <input type="hidden" name="parent" value="{{ comment.id }}">
+                      <div class="field">
+                        <p class="control">
+                          {% if user.is_authenticated %}
+                            {{ form.content }}
+                          {% else %}
+                            <textarea class="textarea" readonly>
+                              Vous devez être connecté pour répondre à ce commentaire.
+                            </textarea>
+                          {% endif %}
+                        </p>
+                      </div>
+                      <div class="level">
+                        <div class="level-left">
+                          <div class="level-item">
+                            <button class="button is-primary" {% if not user.is_authenticated %}disabled{% endif %}>
+                              Répondre
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </article>
+              </div>
+            </article>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <p class="has-text-grey has-text-centered">
+          Aucun commentaire pour l’instant.
+        </p>
+      {% endif %}
+    </div>
+
   </div>
 </section>
-
 {% endblock %}

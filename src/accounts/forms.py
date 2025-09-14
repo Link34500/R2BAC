@@ -10,8 +10,8 @@ class RegisterForm(forms.ModelForm):
     received_email = forms.BooleanField(widget=forms.CheckboxInput(),required=False,label=_("LABEL_SUBSCRIBE_NEWSLETTER"))
     cgu = forms.BooleanField(required=True,label=_("LABEL_CGU_ACCEPT"))
     username = forms.CharField(max_length=22,required=True,label=_("LABEL_USERNAME"),validators=[username_validator])
-    first_name = forms.CharField(max_length=30,required=False,label=_("LABEL_FIRST_NAME"),validators=[name_validator])
-    last_name = forms.CharField(max_length=30,required=False,label=_("LABEL_LAST_NAME"),validators=[name_validator])
+    first_name = forms.CharField(max_length=30,required=True,label=_("LABEL_FIRST_NAME"),validators=[name_validator])
+    last_name = forms.CharField(max_length=30,required=True,label=_("LABEL_LAST_NAME"),validators=[name_validator])
     email = forms.EmailField(max_length=255,required=True,label=_("LABEL_EMAIL"),validators=[email_validator])
     password = forms.CharField(max_length=256,required=True,label=_("LABEL_PASSWORD"),widget=forms.PasswordInput(),validators=[password_validator])
 
@@ -112,8 +112,8 @@ class LoginForm(forms.Form):
 
 
 class ProfileForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=30,required=False,label=_("LABEL_FIRST_NAME"),validators=[name_validator])
-    last_name = forms.CharField(max_length=30,required=False,label=_("LABEL_LAST_NAME"),validators=[name_validator])
+    first_name = forms.CharField(max_length=30,required=True,label=_("LABEL_FIRST_NAME"),validators=[name_validator])
+    last_name = forms.CharField(max_length=30,required=True,label=_("LABEL_LAST_NAME"),validators=[name_validator])
     username = forms.CharField(max_length=22,required=True,label=_("LABEL_USERNAME"),validators=[username_validator])
     avatar = forms.FileField(widget=forms.FileInput(attrs={"accept":"image/png, image/jpeg"}),required=False)
     name_is_username = forms.BooleanField(required=False,label=_("LABEL_NAME_IS_USERNAME"))

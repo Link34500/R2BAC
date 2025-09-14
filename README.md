@@ -10,7 +10,7 @@ Elle a pour objectif d'aider les lycéens à réussir leurs années scolaires, d
 - Système d'authentification sécurisé
 - Profils utilisateurs personnalisables
 - Gestion des cours et chapitres
-- Système de commentaires et réponses sur les cours X
+- Système de commentaires sur les cours
 - Panel de gestion pour les enseignants et administrateurs X # Il faussi pouvoir envoyer des emails
 - Interface potable et responsive
 - Notifications pour les nouveaux cours ou mises à jour par email

@@ -128,3 +128,13 @@ class Profile(models.Model):
     user = models.OneToOneField(User,related_name="profile",on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to="pdp")
     name_is_username = models.BooleanField(default=False,verbose_name="utiliser le nom comme pseudo")
+
+    def get_username(self):
+        """Retourne le nom d'affichage de l'utilisateur
+
+        Returns:
+            str: Nom d'affichage
+        """
+        if not self.name_is_username:
+            return self.user.username
+        return self.user.get_full_name()

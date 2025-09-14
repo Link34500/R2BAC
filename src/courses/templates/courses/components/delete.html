@@ -1,0 +1,16 @@
+{% extends 'components/card.html' %}
+
+{% block card-top %}
+  <h1 class="card-header-title is-centered">Supression de commentaire</h1>
+{% endblock %}
+
+{% block card-content %}
+  <p class="mb-3">Êtes-vous sûr de vouloir supprimer votre commentaire suivant ?</p>
+  <p>{{ object.content }}</p>
+{% endblock %}
+
+{% block card-bottom %}
+  <button class="button is-danger m-3" type="submit">Oui</button>
+  <button class="button is-light m-3" onclick="window.history.back()">Non</button>
+  {% endblock %}
+

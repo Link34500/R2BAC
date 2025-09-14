@@ -8,4 +8,5 @@ urlpatterns = [
   path("<slug:grade_id>/<slug:subject_id>/",ChapterListView.as_view(),name="chapter_list"),
   path("<slug:grade_id>/<slug:subject_id>/<slug:chapter_id>/",CourseListView.as_view(),name="course_list"),
   path("<slug:grade_id>/<slug:subject_id>/<slug:chapter_id>/<slug:course_id>/",CourseView.as_view(),name="course"),
+  path("comment/delete/<int:pk>", DeleteCommentView.as_view(), name="delete_comment"),
 ]

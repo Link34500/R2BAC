@@ -2,7 +2,7 @@
 
 {% block main %}
   <section class="section">
-    <h1 class="title">Liste des chapitres</h1>
+    <h1 class="title">Liste des cours</h1>
   </section>
   <div class="fixed-grid has-4-cols">
     <div class="grid">
@@ -37,6 +37,4 @@
   <td><a class="button is-primary" href="{% url 'panel:edit_course' pk=obj.id %}">✏️</a></td>
   {% endif %}
   <td><a class="button is-primary" href="{% url 'courses:course' grade_id=obj.chapter.subject.grade.slug subject_id=obj.chapter.subject.slug chapter_id=obj.chapter.slug course_id=obj.slug %}">👁️</a></td>
-
-
 {% endblock %}

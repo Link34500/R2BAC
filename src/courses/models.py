@@ -63,3 +63,18 @@ class Course(models.Model):
       self.slug = slugify(self.name)
     return super().save(*args,**kwargs)
 
+class Comment(models.Model):
+  course = models.ForeignKey(Course,on_delete=models.CASCADE,related_name="comments",verbose_name="cours")
+  author = models.ForeignKey(User,on_delete=models.SET_NULL,related_name="comments",blank=False,null=True)
+  content = models.TextField(verbose_name="commentaire",blank=False,null=True)
+  created_at = models.DateTimeField(auto_now_add=True,verbose_name="créé le")
+  parent = models.ForeignKey(
+      'self',
+      null=True,
+      blank=True,
+      related_name="replies",
+      on_delete=models.SET_NULL
+  )
+  def __str__(self):
+    return f"Commentaire de {self.author.username} sur {self.course.name}"
+
