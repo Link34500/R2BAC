@@ -1,1 +1,17 @@
-{% extends ''%}
+{% extends 'r2bac/base.html'%}
+
+{% block content %}
+<section class="section has-background-white-bis" style="min-height: 100vh;">
+  <div class="container">
+    <div class="box" style="max-width: 900px; margin: auto; padding: 2rem;">
+      <div class="content">
+        <h1 class="title is-2 has-text-centered mb-5">Contact</h1>
+        <form method="post">
+          {% csrf_token %}
+          {% include 'components/form.html' %}
+          <button class="button is-primary">Envoyer</button>
+        </form>
+      </div>
+  </div> 
+</section>
+{% endblock %}

@@ -13,7 +13,7 @@ Elle a pour objectif d'aider les lycéens à réussir leurs années scolaires, d
 - Système de commentaires sur les cours
 - Panel de gestion pour les enseignants et administrateurs X # Il faussi pouvoir envoyer des emails
 - Interface potable et responsive
-- Notifications pour les nouveaux cours ou mises à jour par email
+- Notifications pour les nouveaux cours ou mises à jour par email X
 - Création d'articles X
 - News Letter X
 

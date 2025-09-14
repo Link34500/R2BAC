@@ -28,7 +28,7 @@
     <article class="media">
       <figure class="media-left">
         <p class="image is-64x64">
-          <img src="{{ request.user.profile.avatar.url }}" class="is-rounded" />
+          <img src="{{ request.user.profile.avatar_url }}" class="is-rounded" />
         </p>
       </figure>
       <div class="media-content">
@@ -69,7 +69,7 @@
               <!-- Avatar -->
               <figure class="media-left">
                 <p class="image is-64x64">
-                  <img src="{{ comment.author.profile.avatar.url }}"
+                  <img src="{{ comment.author.profile.avatar_url }}"
                        alt="{{ comment.author.profile.get_username }}"
                        class="is-rounded">
                 </p>
@@ -102,7 +102,7 @@
                     <!-- Avatar -->
                     <figure class="media-left">
                       <p class="image is-48x48">
-                        <img src="{{ reply.author.profile.avatar.url }}"
+                        <img src="{{ reply.author.profile.avatar_url }}"
                              alt="{{ reply.author.profile.get_username }}"
                              class="is-rounded">
                       </p>
@@ -118,6 +118,7 @@
                           {{ reply.content }}
                         </p>
                       </div>
+                      <small><a class="has-text-danger" href="{% url 'courses:delete_comment' reply.id %}">Supprimer</a></small>
                     </div>
                   </article>
                 {% endfor %}
@@ -127,7 +128,7 @@
                 <article class="media is-hidden reply-form">
                   <figure class="media-left">
                     <p class="image is-64x64">
-                      <img src="{{ request.user.profile.avatar.url }}" class="is-rounded" />
+                      <img src="{{ request.user.profile.avatar_url }}" class="is-rounded" />
                     </p>
                   </figure>
                   <div class="media-content">

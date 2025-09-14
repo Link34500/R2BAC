@@ -129,6 +129,17 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to="pdp")
     name_is_username = models.BooleanField(default=False,verbose_name="utiliser le nom comme pseudo")
 
+    @property
+    def avatar_url(self):
+        """Retourne l'url de l'avatar
+
+        Returns:
+            str: URL de l'avatar
+        """
+        if self.avatar and hasattr(self.avatar,'url'):
+            return self.avatar.url
+        return "/static/avatar_blank.png"
+
     def get_username(self):
         """Retourne le nom d'affichage de l'utilisateur
 
@@ -138,3 +149,20 @@ class Profile(models.Model):
         if not self.name_is_username:
             return self.user.username
         return self.user.get_full_name()
+
+class Contact(models.Model):
+    """Représente un message envoyé par le formulaire de contact
+
+    Attrs:
+        email (str): Email de l'utilisateur
+        subject (str): Sujet du message
+        message (str): Contenu du message
+        created_at (datetime): Date de création du message
+    """
+    email = models.EmailField(blank=False,null=False)
+    subject = models.CharField(max_length=128,blank=False,null=False)
+    message = models.TextField(blank=False,null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Message from {self.email} - {self.subject}"

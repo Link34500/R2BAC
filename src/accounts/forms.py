@@ -245,5 +245,12 @@ class PasswordChangeForm(forms.Form):
         self.user.set_password(self.cleaned_data["new_password"])
 
 
+class ContactForm(forms.ModelForm):
+    email = forms.EmailField(max_length=255,required=True,label=_("LABEL_EMAIL"),validators=[email_validator])
+    subject = forms.CharField(max_length=255,required=True,label=_("LABEL_SUBJECT"))
+    message = forms.CharField(widget=forms.Textarea(),required=True,label=_("LABEL_MESSAGE"),max_length=5000,min_length=100)
 
-
+    class Meta:
+        model = Contact
+        fields = ["email","subject","message"]
+    
