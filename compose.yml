@@ -33,7 +33,5 @@ services:
       DATABASE_PORT: ${DATABASE_PORT}
     env_file:
       - .env
-    volumes:
-      - ./.env:/app/.env:ro
 volumes:
   postgres_data:
